@@ -1,6 +1,6 @@
 NEAR Single Sided Staking Contract
 ======
-Based on [XREF Token Contract](https://github.com/ref-finance/ref-token/tree/master/xref-token) , but this contract has been modified to avoid creating a new token, performing only the staking functionality. Additionally, the latest SDK is utilized here, and [near-workspaces](https://github.com/near/near-workspaces-rs/) testshave been added.
+Based on [XREF Token Contract](https://github.com/ref-finance/ref-token/tree/master/xref-token) , but this contract has been modified to avoid creating a new token, performing only the staking functionality. Additionally, the latest SDK is utilized here, and [near-workspaces](https://github.com/near/near-workspaces-rs/) tests have been added.
 
 
 ### Sumary
