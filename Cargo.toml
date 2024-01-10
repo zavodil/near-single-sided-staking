@@ -1,0 +1,38 @@
+[package]
+name = "staking"
+version = "0.1.0"
+authors = ["Vadim Ilin <vadim@near.org>"]
+edition = "2018"
+publish = false
+
+[lib]
+path = "contract/src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+near-sdk = "=4.1.1"
+near-contract-standards = "=4.1.1"
+uint = { version = "=0.9.0", default-features = false }
+serde = { version = "1.0.195", features = ["derive"] }
+
+[dev-dependencies]
+anyhow = "1.0"
+tokio = { version = "1.14", features = ["full"] }
+near-gas = { version = "0.2.3", features = ["serde", "borsh", "schemars"] }
+near-workspaces = { version = "0.9.0", default-features = false, features = ["install"] }
+
+[[test]]
+name = "main"
+path = "contract/tests/workspaces/main.rs"
+
+[patch.crates-io]
+parity-secp256k1 = {git = "https://github.com/paritytech/rust-secp256k1"}
+
+[profile.release]
+codegen-units = 1
+# Tell `rustc` to optimize for small code size.
+opt-level = "s"
+lto = true
+debug = false
+panic = "abort"
+overflow-checks = true

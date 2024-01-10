@@ -1,0 +1,5 @@
+# Set the maximum line length (default is 100)
+max_width = 140
+
+# Set the minimum line length
+min_width = 80
