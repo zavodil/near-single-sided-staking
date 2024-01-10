@@ -1,6 +1,6 @@
 NEAR Single Sided Staking Contract
 ======
-Based on [XREF Token Contract](https://github.com/ref-finance/ref-token/tree/master/xref-token) , but this contract has been modified to avoid creating a new token, performing only the staking functionality. Additionally, the latest SDK is utilized here, and [near-workspaces](https://github.com/near/near-workspaces-rs/) tests have been added.
+Based on [XREF Token Contract](https://github.com/ref-finance/ref-token/tree/master/xref-token) , but this contract has been modified to avoid creating a new token, performing only the staking functionality by using virtual shares. Additionally, the latest near-sdk-rs is utilized here, and [near-workspaces](https://github.com/near/near-workspaces-rs/) tests have been added.
 
 
 ### Sumary
@@ -40,7 +40,7 @@ near call <token_account_id> storage_deposit '{"account_id": "<contract_account_
 ### Management
 
 
-#### stake
+#### Stake
 ```bash
 near call <token_account_id> ft_transfer_call '{"receiver_id": "'<contract_account_id>'", "amount": "10''", "msg": "\"Stake\""}' --account_id=<user_account_id> --amount=$YN --gas=$GAS100
 ```
