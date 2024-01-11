@@ -1,6 +1,6 @@
 NEAR Single Sided Staking Contract
 ======
-Based on [XREF Token Contract](https://github.com/ref-finance/ref-token/tree/master/xref-token) , but this contract has been modified to avoid creating a new token, performing only the staking function. Additionally, the latest SDK is utilized here, and [near-workspaces tests](https://github.com/near/near-workspaces-rs/) have been added.
+Based on [XREF Token Contract](https://github.com/ref-finance/ref-token/tree/master/xref-token) , but this contract has been modified to avoid creating a new token, performing only the staking functionality by using virtual shares. Additionally, the latest near-sdk-rs is utilized here, and [near-workspaces](https://github.com/near/near-workspaces-rs/) tests have been added.
 
 
 ### Sumary
@@ -11,11 +11,11 @@ Based on [XREF Token Contract](https://github.com/ref-finance/ref-token/tree/mas
 * Anyone can add a given as reward.  
  
 * Admin to set `reward_per_sec` as a total reward for all stakers proportionally.
-* 
+ 
 * Admin can modify `reward_genesis_time_in_sec` before it passed.
 
 
-### How to run
+### How to start
 
 Compile 
 ```
@@ -33,7 +33,6 @@ near call new pub '{"owner_id": <sender_account_id>, "token_id": <token_account_
 ```
 
 Register staking contract in the token contract
-
 ```
 near call <token_account_id> storage_deposit '{"account_id": "<contract_account_id>"}' --accountId <sender_account_id> --deposit 0.125 NEAR
 ```
@@ -41,7 +40,7 @@ near call <token_account_id> storage_deposit '{"account_id": "<contract_account_
 ### Management
 
 
-#### stake
+#### Stake
 ```bash
 near call <token_account_id> ft_transfer_call '{"receiver_id": "'<contract_account_id>'", "amount": "10''", "msg": "\"Stake\""}' --account_id=<user_account_id> --amount=$YN --gas=$GAS100
 ```
@@ -51,7 +50,7 @@ near call <token_account_id> ft_transfer_call '{"receiver_id": "'<contract_accou
 near call <token_account_id> ft_transfer_call '{"receiver_id": "'<contract_account_id>'", "amount": "10''", "msg": "\"AddRewards\""}' --account_id=<user_account_id> --amount=$YN --gas=$GAS100
 ```
 
-#### Unstake XREF get REF and reward back
+#### Unstake, get token and reward back
 ```bash
 near call <contract_account_id> unstake '{"amount": "8''"}' --account_id=<user_account_id> --amount=$YN --gas=$GAS100
 ```
@@ -59,22 +58,16 @@ near call <contract_account_id> unstake '{"amount": "8''"}' --account_id=<user_a
 #### Owner reset reward genesis time
 ```bash
 # set to 2022-01-22 01:00:00 UTC time
-near call <contract_account_id> reset_reward_genesis_time_in_sec '{"reward_genesis_time_in_sec": 1642813200}' --account_id=$XREF_OWNER
+near call <contract_account_id> reset_reward_genesis_time_in_sec '{"reward_genesis_time_in_sec": 1642813200}' --account_id=<sender_account_id>
 ```
 Note: would return false if already past old genesis time or the new genesis time is a past time.
 
 #### Owner modify reward_per_sec
 ```bash
-near call <contract_account_id> modify_reward_per_sec '{"reward_per_sec": "1''", "distribute_before_change": true}' --account_id=$XREF_OWNER --gas=$GAS100
+near call <contract_account_id> modify_reward_per_sec '{"reward_per_sec": "1''", "distribute_before_change": true}' --account_id=<sender_account_id> --gas=$GAS100
 ```
 Note: If `distribute_before_change` is true, contract will sync up reward distribution using the old `reward_per_sec` at call time before changing to the new one.
 
-### HOW TO BUILD LOCAL
-
-
-```
-./build_local.sh
-```
 
 ### HOW TO RUN TESTS
 
